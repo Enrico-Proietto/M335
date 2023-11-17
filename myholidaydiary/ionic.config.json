@@ -1,0 +1,7 @@
+{
+  "name": "myholidaydiary",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
