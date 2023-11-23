@@ -3,7 +3,7 @@
   <img *ngIf="imageUrl" [src]="imageUrl" />
 
   <ion-button fill="clear"
-    (click)="takePicture()">
+    (click)="takePicture()" vertical="center">
     Take photo
   </ion-button>
 
@@ -14,10 +14,10 @@
   </ion-button>
 
   <ion-textarea *ngIf="latitude">
-    {{latitude}}
+    {{latitude}} {{longitude}}
   </ion-textarea>
 
-  <ion-textarea *ngIf="imageUrl">
+  <ion-textarea [(ngModel)]="description" *ngIf="imageUrl">
   </ion-textarea>
 
   <ion-button fill="clear"

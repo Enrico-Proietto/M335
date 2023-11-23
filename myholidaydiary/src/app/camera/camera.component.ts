@@ -6,17 +6,19 @@ import { CommonModule } from '@angular/common'
 import { Geolocation } from '@capacitor/geolocation';
 import { GeolocatorService } from '../service/geolocator.service';
 import { PhotoService } from '../service/photo.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-camera',
   templateUrl: './camera.component.html',
   styleUrls: ['./camera.component.scss'],
   standalone: true, 
-  imports: [IonicModule, CommonModule,]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class CameraComponent {
   public photos: Photo[] = [];
 
+  description: string = '';
   imageUrl: string | undefined;
   latitude : number = 0
   longitude : number = 0
@@ -30,12 +32,12 @@ export class CameraComponent {
 
   takePicture = async () => {
     const image = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
+      resultType: CameraResultType.DataUrl,
       source: CameraSource.Camera,
       quality: 100
     })
     this.newImage = image
-    this.imageUrl = image.webPath;
+    this.imageUrl = image.dataUrl;
     this.getCurrentPosition()
   }
 
@@ -44,13 +46,10 @@ export class CameraComponent {
   }
 
   savePicture = async () => {
-    const imageFileURi = this.newImage.path;
-    const response = await fetch(imageFileURi!);
-    const blob = await response.blob();
-    const file = new File([blob], 'image.jpg', { type: blob.type, lastModified: Date.now() });
-    const uploadImage = this.photoService.uploadImage;
-    const imageUrl = await uploadImage(file);
-    this.getCurrentPosition()
+    const testblob = await fetch(this.newImage.path!).then(r => r.blob()) 
+    const uploadImage = this.photoService.uploadImage("image_"+Date.now()+".jpg", testblob, this.description, this.latitude, this.longitude)
+    this.getCurrentPosition();
+    // uploadImage
   }
 
   getCurrentPosition = async () => {

@@ -5,6 +5,9 @@ import { Album } from '../data/album';
 import { AlbumService } from '../service/album.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { add } from 'ionicons/icons';
+import { AlbumIdService } from '../service/albumid.service';
 
 @Component({
   selector: 'app-tab1',
@@ -19,7 +22,9 @@ export class Tab1Page implements OnInit{
   hasAlbums: boolean = false
   noAlbums: boolean = true
 
-  constructor(private albumservice : AlbumService, public route : Router) {}
+  constructor(private albumservice : AlbumService, public route : Router, public albumIdService : AlbumIdService) {
+    addIcons({add});
+  }
 
   ngOnInit() {
     this.loadAlbums()
@@ -27,6 +32,11 @@ export class Tab1Page implements OnInit{
 
   nextpage() {
     this.route.navigate(['/tabs/tab3']);
+  }
+
+  seeAlbum(albumID : number) {
+    this.route.navigate(['/tabs/tab4']);
+    this.albumIdService.setAlbumID(albumID)
   }
 
   loadAlbums() {

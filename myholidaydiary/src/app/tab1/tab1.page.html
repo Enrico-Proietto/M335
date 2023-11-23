@@ -8,7 +8,15 @@
 
 <ion-content [fullscreen]="true">
   <ion-list *ngIf="hasAlbums">
-    <p>Album</p>
+    <ion-item>
+      <ion-card *ngFor="let album of albums" [id="album.id"]>
+        <ion-card-header id={{album.id}}>
+          {{ album.name }}
+        </ion-card-header>
+        <ion-button color="success" (click)="seeAlbum(album.id)">See</ion-button>
+        <ion-button color="danger">Delete</ion-button>
+      </ion-card>
+    </ion-item>
   </ion-list>
 
   <ion-list *ngIf="noAlbums">
@@ -16,4 +24,12 @@
       <ion-button id="popover-create" class="button-Center" justify-content-center (click)="nextpage()" >Create Album</ion-button>
     </ion-item>
   </ion-list>
+
+  <ion-fab vertical="fixed" horizontal="end">
+    <ion-fab-button id="fab-button" (click)="nextpage()" >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+  
 </ion-content>
