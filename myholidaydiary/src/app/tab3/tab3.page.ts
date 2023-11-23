@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss'],
+  templateUrl: './tab3.page.html',
+  styleUrls: ['./tab3.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent],
+  imports: [IonicModule, CommonModule, FormsModule]
 })
-export class Tab3Page {
-  constructor() {}
+export class Tab3Page implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
 }

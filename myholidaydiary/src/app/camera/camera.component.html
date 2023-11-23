@@ -1,0 +1,29 @@
+<ion-card style="text-align: center; align-self: center;">
+
+  <img *ngIf="imageUrl" [src]="imageUrl" />
+
+  <ion-button fill="clear"
+    (click)="takePicture()">
+    Take photo
+  </ion-button>
+
+  <ion-button fill="clear"
+    *ngIf="imageUrl"
+    (click)="resetPicture()">
+    Reset
+  </ion-button>
+
+  <ion-textarea *ngIf="latitude">
+    {{latitude}}
+  </ion-textarea>
+
+  <ion-textarea *ngIf="imageUrl">
+  </ion-textarea>
+
+  <ion-button fill="clear"
+    *ngIf="imageUrl" (click)="savePicture()">
+    Save
+  </ion-button>
+</ion-card> 
+
+<!-- (click)="savePicture()" --> 
