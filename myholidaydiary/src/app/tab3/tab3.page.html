@@ -1,0 +1,18 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Settings
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list-header>Apperance</ion-list-header>
+  <ion-list>
+      <ion-item>
+        <ion-toggle (ionChange)="toggleDarkMode()" (ngModel)="darkmode">
+          Dark Mode
+        </ion-toggle>
+      </ion-item>
+  </ion-list>
+</ion-content>

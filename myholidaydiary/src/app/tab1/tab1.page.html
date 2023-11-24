@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title style="text-align: center;">
+      MyHolidayDiary
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list *ngIf="hasAlbums">
+    <ion-item>
+      <ion-card *ngFor="let album of albums">
+        <ion-card-header >
+          {{ album.name }}
+        </ion-card-header>
+        <ion-button color="success" (click)="seeAlbum(album.name)">See</ion-button>
+        <ion-button color="danger">Delete</ion-button>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="noAlbums">
+    <ion-item>
+      <ion-button id="popover-create" class="button-Center" justify-content-center (click)="nextpage()" >Create Album</ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="fixed" horizontal="end">
+    <ion-fab-button id="fab-button" (click)="nextpage()" >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+  
+</ion-content>
