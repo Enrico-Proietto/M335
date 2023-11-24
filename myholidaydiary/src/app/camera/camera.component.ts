@@ -7,6 +7,8 @@ import { Geolocation } from '@capacitor/geolocation';
 import { GeolocatorService } from '../service/geolocator.service';
 import { PhotoService } from '../service/photo.service';
 import { FormsModule } from '@angular/forms';
+import { AlbumIdService } from '../service/albumid.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-camera',
@@ -23,12 +25,13 @@ export class CameraComponent {
   latitude : number = 0
   longitude : number = 0
   altitude : number | null = 0
+  location : string = ''
   newImage : Photo = {
     webPath: '', format: '', exif: null, base64String: '', path: '', dataUrl: '',
     saved: false
   }
 
-  constructor(public geolocationService : GeolocatorService, public photoService : PhotoService) { }
+  constructor(public geolocationService : GeolocatorService, public photoService : PhotoService, public albumIDService : AlbumIdService, public route : Router) { }
 
   takePicture = async () => {
     const image = await Camera.getPhoto({
@@ -46,9 +49,11 @@ export class CameraComponent {
   }
 
   savePicture = async () => {
-    const testblob = await fetch(this.newImage.path!).then(r => r.blob()) 
-    const uploadImage = this.photoService.uploadImage("image_"+Date.now()+".jpg", testblob, this.description, this.latitude, this.longitude)
+    const testblob = await fetch(this.newImage.dataUrl!).then(r => r.blob())
+    console.log(testblob.type)
+    const uploadImage = this.photoService.uploadImage("image_"+Date.now()+".png", testblob, this.description, this.latitude, this.longitude)
     this.getCurrentPosition();
+    this.route.navigate(['/tabs/tab4']);
     // uploadImage
   }
 
@@ -57,7 +62,9 @@ export class CameraComponent {
 
     this.latitude = position.coords.latitude;
     this.longitude = position.coords.longitude;
-    this.altitude = position.coords.altitude;
+
+    this.location = this.latitude + ', ' + this.longitude;
   }
+
 }
 

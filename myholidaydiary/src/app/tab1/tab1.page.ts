@@ -21,8 +21,9 @@ export class Tab1Page implements OnInit{
   albums:  Array<Album> | null = []
   hasAlbums: boolean = false
   noAlbums: boolean = true
+  albumID: number = 0;
 
-  constructor(private albumservice : AlbumService, public route : Router, public albumIdService : AlbumIdService) {
+  constructor(private albumService : AlbumService, public route : Router, public albumIdService : AlbumIdService) {
     addIcons({add});
   }
 
@@ -34,13 +35,8 @@ export class Tab1Page implements OnInit{
     this.route.navigate(['/tabs/tab3']);
   }
 
-  seeAlbum(albumID : number) {
-    this.route.navigate(['/tabs/tab4']);
-    this.albumIdService.setAlbumID(albumID)
-  }
-
   loadAlbums() {
-    this.albumservice.getAlbums()
+    this.albumService.getAlbums()
     .then(data => {
       if (data?.values != null) {
         this.albums = data
@@ -48,5 +44,15 @@ export class Tab1Page implements OnInit{
         this.noAlbums = false
       }
     })
+  }
+
+  async seeAlbum(albumName: string) {
+    try {
+      this.albumID = await this.albumService.getAlbumIDByName(albumName);
+      this.albumIdService.setAlbumID(this.albumID);
+      this.route.navigate(['/tabs/tab4']);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

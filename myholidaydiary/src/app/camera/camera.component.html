@@ -13,11 +13,7 @@
     Reset
   </ion-button>
 
-  <ion-textarea *ngIf="latitude">
-    {{latitude}} {{longitude}}
-  </ion-textarea>
-
-  <ion-textarea [(ngModel)]="description" *ngIf="imageUrl">
+  <ion-textarea [(ngModel)]="description" *ngIf="imageUrl" placeholder="Make a description">
   </ion-textarea>
 
   <ion-button fill="clear"

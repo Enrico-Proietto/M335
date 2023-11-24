@@ -10,9 +10,9 @@ export class GeolocatorService {
 
   public async getCurrentPosition () {
 
-    let attrs = {enableHighAccuracy: true}
-
-    const coordinates = await Geolocation.getCurrentPosition(attrs);
+    await Geolocation.requestPermissions();
+    
+    const coordinates = await Geolocation.getCurrentPosition();
 
     return coordinates;
 

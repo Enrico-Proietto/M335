@@ -5,9 +5,59 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-fab vertical="fixed" horizontal="end">
-    <ion-fab-button (click)="nextpage()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <ion-list>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1">
+            <ng-container *ngFor="let photo of listOfPhotos">
+              <ion-card>
+                <ion-card-header>
+                  {{ photo.description }}
+                </ion-card-header>
+                <ion-card-content>
+                  <ion-img [src]="photo.pictureUrl"></ion-img>
+                  <p>Location: {{ photo.location }}</p>
+                  </ion-card-content>
+                  <ion-button id="modal-trigger" (click)="setEditedPhotoID(photo.id)"><ion-icon name="create"></ion-icon></ion-button>
+                  <ion-modal trigger="modal-trigger" >
+                    <ng-template>
+                    <ion-header>
+                      <ion-toolbar>
+                        <ion-title>Edit description</ion-title>
+                        <ion-buttons slot="start">
+                          <ion-button (click)="cancel()">Close</ion-button>
+                        </ion-buttons>
+                        <ion-buttons slot="end">
+                          <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+                        </ion-buttons>
+                      </ion-toolbar>
+                    </ion-header>
+                    <ion-content>
+                      <ion-list>
+                        <ion-item>
+                          <ion-input
+                          label="Enter new description"
+                          type="test"
+                          placeholder="new description"
+                          [(ngModel)]="newDescription"></ion-input>
+                        </ion-item>
+                      </ion-list>
+                    </ion-content>
+                  </ng-template>
+                  </ion-modal>
+                <ion-button color="danger" (click)="deletePhoto(photo.id)">Delete</ion-button>
+              </ion-card>
+            </ng-container>
+          </ion-col>
+          <ion-fab vertical="fixed" horizontal="end">
+            <ion-fab-button (click)="nextpage()">
+              <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
 </ion-content>

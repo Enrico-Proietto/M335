@@ -9,11 +9,11 @@
 <ion-content [fullscreen]="true">
   <ion-list *ngIf="hasAlbums">
     <ion-item>
-      <ion-card *ngFor="let album of albums" [id="album.id"]>
-        <ion-card-header id={{album.id}}>
+      <ion-card *ngFor="let album of albums">
+        <ion-card-header >
           {{ album.name }}
         </ion-card-header>
-        <ion-button color="success" (click)="seeAlbum(album.id)">See</ion-button>
+        <ion-button color="success" (click)="seeAlbum(album.name)">See</ion-button>
         <ion-button color="danger">Delete</ion-button>
       </ion-card>
     </ion-item>

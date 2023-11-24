@@ -3,5 +3,5 @@ export class PhotoOfuser {
     public description : string = ""
     public location : string = ""
     public albumId! : number
-    pictureURL! : string
+    public pictureUrl! : string
 }

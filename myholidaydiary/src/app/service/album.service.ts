@@ -38,5 +38,22 @@ export class AlbumService {
         }
         return data
     }
+
+    async getAlbumIDByName(albumName: string) {
+        const { data, error } = await this.supabase
+        .from(ALBUM_TABLE)
+        .select("*")
+        .filter("name", "eq", albumName)
+        .single();
+
+
+        if (error) {
+            console.error('Error retrieving album:', error.message);
+        }
+        else {
+            return data.id;
+        }
+    }
+
 }
 
